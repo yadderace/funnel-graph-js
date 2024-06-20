@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>SVG Funnel</title>
-	<link rel="stylesheet" type="text/css" href="../dist/css/main.min.css">
-    <link rel="stylesheet" type="text/css" href="../dist/css/theme.min.css">
+    <meta charset="UTF-8">
+    <title>SVG Funnel</title>
+    <link rel="stylesheet" type="text/css" href="../dist/css/funnel-graph.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/png" href="favicon.png"/>
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <style>
-        html, body {
+        html,
+        body {
             min-height: 100%;
         }
 
@@ -18,41 +19,90 @@
         }
 
         .funnel {
-            margin: 24px auto;
+            height: auto;
         }
 
         .flex {
             display: flex;
         }
 
+        .row {
+            flex-direction: row;
+        }
+
+        .col {
+            flex-direction: column;
+        }
+
         .method-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 48px;
+            align-items: center;
+            justify-content: start;
+            padding: 8px;
         }
 
         button {
-            margin-left: 8px;
-            margin-right: 8px;
+            width: 100px;
+            margin: 4px;
+            padding: 4px;
+        }
+
+        .funnel-wrapper {
+            align-items: center;
+            justify-content: start;
+            width: 100%;
+            height: 100%;
+        }
+
+        .main-wrapper {
+            height: 100vh;
+        }
+
+        button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: auto;
+            background-color: #f0f0f0;
+            margin: 0;
+
+            background-color: white; /* White background */
+            border: none; /* Remove borders */
+            color: navy; /* Green text */
+            
+            text-align: center; /* Centered text */
+            text-decoration: none; /* Remove underline */
+            display: inline-block; /* Get the element to line up horizontally */
+            font-size: 12px; /* Increase font size */
+            margin: 4px 2px; /* Add some margin */
+            cursor: pointer; /* Pointer/hand icon */
+            border-radius: 12px; /* Rounded corners */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+            transition: background-color 0.3s, box-shadow 0.3s; /* Smooth transitions */
         }
     </style>
 </head>
-<body>
-    <div class="flex">
-        <div class="funnel">
-        </div>
-    </div>
 
-    <div class="method-buttons">
-        <button id="makeVertical">Make Vertical</button>
-        <button id="makeHorizontal">Make Horizontal</button>
-        <button id="toggleDirection">Toggle Direction</button>
-        <button id="gradientMakeVertical">Gradient Make Vertical</button>
-        <button id="gradientMakeHorizontal">Gradient Make Horizontal</button>
-        <button id="gradientToggleDirection">Gradient Toggle Direction</button>
-        <button id="useData1">Use DataSet 1</button>
-        <button id="useData2">Use DataSet 2</button>
-        <button id="useData3">Use DataSet 3</button>
+<body>
+    <div class="main-wrapper flex row">
+        <div class="flex method-buttons col">
+            <button id="makeVertical">Vertical</button>
+            <button id="makeHorizontal">Horizontal</button>
+            <button id="toggleDirection">Toggle Direction</button>
+            <button id="gradientMakeVertical">Vertical Gradient</button>
+            <button id="gradientMakeHorizontal">Horizontal Gradient </button>
+            <button id="gradientToggleDirection">Gradient Toggle Direction</button>
+            <button id="useData1">DataSet 1</button>
+            <button id="useData2">DataSet 2</button>
+            <button id="useData3">DataSet 3</button>
+            <button id="hideTooltip">Hide Tooltip</button>
+            <button id="hideDetails">Hide Details</button>
+            <button id="showTooltip">Show Tooltip</button>
+            <button id="showDetails">Show Details</button>
+        </div>
+        <div class="flex funnel-wrapper col">
+            <div class="funnel">
+            </div>
+        </div>
     </div>
 
     <script src="../dist/js/funnel-graph.js"></script>
@@ -78,23 +128,32 @@
             ],
             values: [
                 [3500, 2500, 6500],
-                [3300, 1400, 1000],
+                [800, 1400, 1000],
                 [600, 200, 130]
             ],
         };
 
         var graph = new FunnelGraph({
             container: '.funnel',
-            gradientDirection: 'horizontal',
+            gradientDirection: 'vertical',
             data: dataExample3,
             displayPercent: true,
             direction: 'horizontal',
-            width: 800,
-            height: 300,
-            subLabelValue: 'raw'
+            width: 600,
+            height: 400,
+            subLabelValue: 'raw',
+            callbacks: {
+                click: (event, metadata) => {
+                    console.log(metadata);
+                }
+            }
         });
 
         graph.draw();
+
+        window.addEventListener('beforeunload', () => {
+            graph?.destroy();
+        });
 
         // direction methods
         document.querySelector('#makeVertical').addEventListener('click', function () {
@@ -128,17 +187,30 @@
         });
 
         document.querySelector('#useData1').addEventListener('click', function () {
-          graph.updateData(dataExample1);
+            graph.updateData(dataExample1);
         });
 
         document.querySelector('#useData2').addEventListener('click', function () {
-          graph.updateData(dataExample2);
+            graph.updateData(dataExample2);
         });
 
         document.querySelector('#useData3').addEventListener('click', function () {
-          graph.updateData(dataExample3);
+            graph.updateData(dataExample3);
+        });
+        document.querySelector('#hideTooltip').addEventListener('click', function () {
+            graph.updateData({ tooltip: false});
+        });
+        document.querySelector('#hideDetails').addEventListener('click', function () {
+            graph.updateData({ width: 200, height: 200, details: false, margin: { top: 0, right: 0, bottom: 0, left: 0, text: 0 } });
+        });
+        document.querySelector('#showTooltip').addEventListener('click', function () {
+            graph.updateData({ tooltip: true});
+        });
+        document.querySelector('#showDetails').addEventListener('click', function () {
+            graph.updateData({ width: 600, height: 400, details: true, margin: { top: 100, right: 80, bottom: 80, left: 80, text: 20 } });
         });
 
     </script>
 </body>
+
 </html>

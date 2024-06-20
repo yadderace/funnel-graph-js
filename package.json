@@ -1,19 +1,25 @@
 {
-  "name": "funnel-graph-js",
-  "version": "1.4.2",
+  "name": "d3-funnel-graph",
+  "version": "1.0.2",
   "description": "SVG Funnel Graph Javascript Library",
-  "main": "main.js",
+  "main": "dist/js/funnel-graph.min.js",
+  "style": "dist/funnel-graph.min.css",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "gulp",
+    "build": "gulp build", 
     "test": "nyc mocha --compilers js:babel-core/register"
   },
-  "author": "Greg Hovanesyan",
+  "author": "Arik Lewin",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/greghub/funnel-graph-js.git"
+    "url": "https://github.com/lastboy/funnel-graph-js.git"
   },
   "keywords": [
+    "d3",
     "funnel",
     "chart",
     "graph",
@@ -54,5 +60,15 @@
     "mocha": "^5.2.0",
     "nyc": "^13.3.0",
     "vinyl-source-stream": "^2.0.0"
+  },
+  "resolutions": {
+    "node-sass": "8.0.0"
+  },
+  "dependencies": {
+    "d3": "^7.9.0",
+    "d3-interpolate": "^3.0.1",
+    "d3-selection": "^3.0.0",
+    "d3-transition": "^3.0.1",
+    "nanoid": "3.1.30"
   }
 }

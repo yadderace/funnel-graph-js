@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,700");
+
+.d3-funnel-js-tooltip {
+    pointer-events: none;
+    font-size: .8em;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    white-space: wrap;
+    min-width: 140px;
+    width: auto;
+    height: 30px;
+    transition: opacity 0.2s;
+
+    font-family: $font-family;
+    padding: $tooltip-padding;
+    border-radius: $tooltip-border-radius;
+    border: $tooltip-border;
+    background-color: $tooltip-bg;
+    color: $tooltip;
+}
+
+.d3-funnel-js {
+
+    display: block;
+    margin: auto;
+    font-family: $font-family;
+
+    .label__group {
+
+        .label__value {
+            font-size: $label-value-font-size;
+            fill: $label-value;
+            line-height: 18px;
+        }
+
+        .label__title {
+            font-size: $label-title-font-size;
+            font-weight: bold;
+            fill: $label-title;
+        }
+
+        .label__percentage {
+            font-size: $label-per-font-size;
+            font-weight: bold;
+            fill: $label-per;
+        }
+
+    }
+
+    .divider {
+        stroke: $divider-stroke ;
+        stroke-width: $divider-stroke-width;
+    }
+
+}
