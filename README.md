@@ -12,7 +12,14 @@ Funnel Graph JS is a library for generating a funnel chart. It generates an SVG 
 Some of the features include generating horizontal and vertical funnel charts, applying solid colors and gradients,
 possibility to generate a two-dimensional funnel chart. 
 
-[![Demo](https://i.imgur.com/3Zw9m2l.jpg)](https://codepen.io/arik-test)
+This is a fork from the original funnel-graph-js initiated by greghub 
+This project was refactor and changed most of it to use [D3 JS](https://d3js.org/)
+The only part that was preserved was the way greghub created the graph's paths for the two dimention.
+The entire way of displaying this Funnel is using SVG elemenets and not combining HTML and SVG. 
+The main reason is to have a single responsive element that can be dynamically updated and resized w/o the need of recreating the graph.
+Tooltip and clickable areas with transition added to the graph. 
+
+[![Demo](https://i.imgur.com/3Zw9m2l.jpg)](https://codepen.io/arik-test/pen/KKLZrVe)
 
 ## Table of Contents
 
@@ -35,31 +42,32 @@ npm i funnel-graph-js
 #### CDN
 
 ```html
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/funnel-graph-js@1.3.9/dist/css/main.min.css">
-<link rel="stylesheet" type="text/css" href="https://unpkg.com/funnel-graph-js@1.3.9/dist/css/theme.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/lastboy/funnel-graph-js@master/dist/css/funnel-graph.min.css">
 
-<script src="https://unpkg.com/funnel-graph-js@1.3.9/dist/js/funnel-graph.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/lastboy/funnel-graph-js@master/dist/js/funnel-graph.min.js"></script>
 ```
 
 #### Download
 
-Download the repo ZIP, add `funnel-graph.js` or `funnel-graph.min.js`, and `main.css` or `main.min.css`.
-Optionally add `theme.min.css` to include the styling for labels, legend etc. 
-It is recommended to add the theme, to display the chart correctly.
+Download the repo ZIP, add `funnel-graph.js` or `funnel-graph.min.js`, and `funnel-graph.min.css`.
+Or you can integrate the scss folder with your application
 
-FunnelGraph.js is built in a way that most of the styling is controlled by theme file,
-so it is possible to adapt every element to your design. The chart is a SVG element and 
-`colors` property of the options controls the colors of the chart.
+The chart is a SVG element and `colors` property of the options controls the colors of the chart.
 
 CSS:
 ```html
-<link rel="stylesheet" type="text/css" href="../dist/css/main.min.css">
-<link rel="stylesheet" type="text/css" href="../dist/css/theme.min.css">
+<link rel="stylesheet" type="text/css" href="../dist/css/funnel-graph.min.css">
+```
+
+SCSS:
+```
+@import "d3-funnel-graph/dist/css/variables.scss"
+@import "d3-funnel-graph/dist/css/d3.scss"
 ```
 
 JS:
 ```html
-<script src="../dist/js/funnel-graph.js"></script>
+<script src="../dist/js/funnel-graph.min.js"></script>
 ```
 
 ## Usage
@@ -74,6 +82,7 @@ var graph = new FunnelGraph({
 });
 
 graph.draw();
+// use graph.destroy() for cleanup
 ```
 
 You can choose how you want to display your data on funnel graph. 
