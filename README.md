@@ -14,12 +14,11 @@ possibility to generate a two-dimensional funnel chart.
 
 <img width="640" src="https://i.imgur.com/3Zw9m2l.jpg" alt="SVG Two Dimensional Funnel Graph">
 
-<p class="codepen" data-height="300" data-theme-id="dark" data-default-tab="result" data-slug-hash="KKLZrVe" data-user="arik-test" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;" data-pen-title="Test Pen">
-  <span>See the Pen <a href="https://codepen.io/arik-test/pen/KKLZrVe">
+<iframe height="300" style="width: 100%;" scrolling="no" title="Test Pen" src="https://codepen.io/arik-test/embed/KKLZrVe?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/arik-test/pen/KKLZrVe">
   Test Pen</a> by arik-test (<a href="https://codepen.io/arik-test">@arik-test</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://cpwebassets.codepen.io/assets/embed/ei.js"></script>
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
 
 ## Table of Contents
 
