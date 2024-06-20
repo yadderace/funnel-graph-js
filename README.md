@@ -12,13 +12,7 @@ Funnel Graph JS is a library for generating a funnel chart. It generates an SVG 
 Some of the features include generating horizontal and vertical funnel charts, applying solid colors and gradients,
 possibility to generate a two-dimensional funnel chart. 
 
-<img width="640" src="https://i.imgur.com/3Zw9m2l.jpg" alt="SVG Two Dimensional Funnel Graph">
-
-<iframe height="300" style="width: 100%;" scrolling="no" title="Test Pen" src="https://codepen.io/arik-test/embed/KKLZrVe?default-tab=result" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-  See the Pen <a href="https://codepen.io/arik-test/pen/KKLZrVe">
-  Test Pen</a> by arik-test (<a href="https://codepen.io/arik-test">@arik-test</a>)
-  on <a href="https://codepen.io">CodePen</a>.
-</iframe>
+[![Demo](https://i.imgur.com/3Zw9m2l.jpg)](https://codepen.io/arik-test)
 
 ## Table of Contents
 
