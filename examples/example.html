@@ -119,29 +119,18 @@
 
     <script src="../dist/js/funnel-graph.js"></script>
     <script>
-        var dataExample1 = {
+        const dataExample1 = {
             colors: ['#FFB178', '#FF3C8E'],
             values: [11000, 3000, 240]
         };
 
-        var dataExample2 = {
+        const dataExample2 = {
             labels: ['Impressions 2', 'Add To Cart 2', 'Buy 2'],
             colors: ['#FFB178', '#FF3C8E'],
             values: [12000, 5700, 360]
         };
 
-        var dataExample1 = {
-            colors: ['#FFB178', '#FF3C8E'],
-            values: [11000, 3000, 240]
-        };
-
-        var dataExample2 = {
-            labels: ['Impressions 2', 'Add To Cart 2', 'Buy 2'],
-            colors: ['#FFB178', '#FF3C8E'],
-            values: [12000, 5700, 360]
-        };
-
-        var dataExample3 = {
+        const dataExample3 = {
             labels: ['Impressions', 'Add To Cart', 'Buy'],
             subLabels: ['Direct', 'Social Media', 'Ads'],
             colors: [
@@ -156,7 +145,7 @@
             ],
         };
 
-        var graph = new FunnelGraph({
+        const graph = new FunnelGraph({
             container: '.funnel',
             gradientDirection: 'horizontal',
             data: dataExample3,

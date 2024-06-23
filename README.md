@@ -25,7 +25,7 @@ New features have been added:
 There's no need to use the Vue in specific project: [vue-funnel-graph-js](https://github.com/greghub/vue-funnel-graph-js)  
 This project is using dynamic data and configuration updates. It is very simple to integrate with any FE JS framework.
 
-// TBD codepen example 
+Vue2 Example: https://codepen.io/arik-test/pen/qBGYjyG
 
 ## Installation
 
