@@ -5861,7 +5861,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
  *      margin: { ?top, ?right, ?bottom, ?left, text },
  *      gradientDirection: 'vertical',
  *      callbacks: {
- *          'tooltip': () => {},
  *          'click': () => {}
  *      }
  *      details: false
@@ -5884,11 +5883,11 @@ var FunnelGraph = /*#__PURE__*/function () {
     this.colors = options.data.colors || (0, _colors.getDefaultColors)(this.is2d() ? this.getSubDataSize() : 2);
     this.displayPercent = options.displayPercent || false;
     this.margin = {
-      top: 100,
-      right: 80,
-      bottom: 80,
-      left: 80,
-      text: 20
+      top: 120,
+      right: 60,
+      bottom: 60,
+      left: 60,
+      text: 10
     };
     this.setMargin(options === null || options === void 0 ? void 0 : options.margin);
     var height = options.height || (0, _d.getContainer)(this.containerSelector).clientHeight;
@@ -6331,6 +6330,9 @@ var FunnelGraph = /*#__PURE__*/function () {
      * Redraw the graph and info according to the incoming data changes
      * 
      * @param {*} d {
+     *      width: ...
+     *      height: ...
+     *      margin: ...
      *      values: ...
      *      labels: ...
      *      subLabels: ...

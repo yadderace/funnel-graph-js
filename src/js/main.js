@@ -26,7 +26,6 @@ import { nanoid } from 'nanoid';
  *      margin: { ?top, ?right, ?bottom, ?left, text },
  *      gradientDirection: 'vertical',
  *      callbacks: {
- *          'tooltip': () => {},
  *          'click': () => {}
  *      }
  *      details: false
@@ -53,7 +52,7 @@ class FunnelGraph {
         this.colors = options.data.colors || getDefaultColors(this.is2d() ? this.getSubDataSize() : 2);
         this.displayPercent = options.displayPercent || false;
 
-        this.margin = { top: 100, right: 80, bottom: 80, left: 80, text: 20 };
+        this.margin = { top: 120, right: 60, bottom: 60, left: 60, text: 10 };
         this.setMargin(options?.margin);
 
         let height = options.height || getContainer(this.containerSelector).clientHeight;
@@ -453,6 +452,9 @@ class FunnelGraph {
      * Redraw the graph and info according to the incoming data changes
      * 
      * @param {*} d {
+     *      width: ...
+     *      height: ...
+     *      margin: ...
      *      values: ...
      *      labels: ...
      *      subLabels: ...

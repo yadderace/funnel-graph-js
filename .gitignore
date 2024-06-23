@@ -3,3 +3,5 @@ node_modules/
 .idea/
 .nyc_output/
 .history
+
+package-lock.json
