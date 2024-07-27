@@ -43,7 +43,9 @@ class FunnelGraph {
         this.gradientDirection = (options.gradientDirection && options.gradientDirection === 'vertical')
             ? 'vertical'
             : 'horizontal';
-
+            
+        const availablePctModes = ['max', 'previous', 'first'];
+        this.setPctMode(options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode)) ? options.pctMode : 'max';
         this.setResponsive(options.hasOwnProperty("responsive") ? options.responsive : false);
         this.setDetails(options.hasOwnProperty('details') ? options.details : true);
         this.setTooltip(options.hasOwnProperty('tooltip') ? options.tooltip : true);
@@ -103,6 +105,10 @@ class FunnelGraph {
         return this.details;
     }
 
+    showPctMode() {
+        return this.pctMode;
+    }
+
     getContainerSelector(){
         return this.containerSelector;
     }
@@ -158,6 +164,10 @@ class FunnelGraph {
 
     setDetails(bool) {
         this.details = bool;
+    }
+
+    setPctMode(mode) {
+        this.pctMode = mode;
     }
 
     /**
@@ -310,8 +320,24 @@ class FunnelGraph {
             values = [...this.values];
         }
 
-        const max = Math.max(...values);
-        return values.map(value => (value === 0 ? 0 : roundPoint(value * 100 / max)));
+        if (this.pctMode === 'max') {
+            // Calculate percentage relative to the maximum value
+            const max = Math.max(...values);
+            values = values.map(value => (value === 0 ? 0 : roundPoint(value * 100 / max)));
+        } else if (this.pctMode === 'previous') {
+            // Calculate percentage relative to the previous value
+            values = values.map((value, index) => {
+                if (index === 0) return 100; // The first item relative to itself is always 100%
+                const previousValue = values[index - 1];
+                return (previousValue === 0 ? 0 : roundPoint(value * 100 / previousValue));
+            });
+        } else if (this.pctMode === 'first') {
+            // Calculate percentage relative to the first value
+            const firstValue = values[0];
+            values = values.map(value => (firstValue === 0 ? 0 : roundPoint(value * 100 / firstValue)));
+        }
+
+        return values;
     }
 
     makeVertical(force = false) {
@@ -517,6 +543,10 @@ class FunnelGraph {
             if (typeof d.colors !== 'undefined') {
                 // Update colors if specified, or use default colors as a fallback
                 this.colors = d.colors || getDefaultColors(this.is2d() ? this.getSubDataSize() : 2);
+            }
+
+            if (typeof d.pctMode !== 'undefined') {
+                this.setPctMode(d.pctMode);
             }
 
             // Calculate percentages for the graph based on the updated or existing values
