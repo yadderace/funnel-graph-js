@@ -5941,6 +5941,7 @@ function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbol
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { _defineProperty(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _readOnlyError(r) { throw new TypeError('"' + r + '" is read-only'); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
@@ -5980,6 +5981,8 @@ var FunnelGraph = /*#__PURE__*/function () {
     _classCallCheck(this, FunnelGraph);
     this.id = this.generateId(), this.containerSelector = options.container;
     this.gradientDirection = options.gradientDirection && options.gradientDirection === 'vertical' ? 'vertical' : 'horizontal';
+    var availablePctModes = ['max', 'previous', 'first'];
+    this.setPctMode(options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode)) ? options.pctMode : 'max';
     this.setResponsive(options.hasOwnProperty("responsive") ? options.responsive : false);
     this.setDetails(options.hasOwnProperty('details') ? options.details : true);
     this.setTooltip(options.hasOwnProperty('tooltip') ? options.tooltip : true);
@@ -6042,6 +6045,11 @@ var FunnelGraph = /*#__PURE__*/function () {
     key: "showDetails",
     value: function showDetails() {
       return this.details;
+    }
+  }, {
+    key: "showPctMode",
+    value: function showPctMode() {
+      return this.pctMode;
     }
   }, {
     key: "getContainerSelector",
@@ -6110,6 +6118,11 @@ var FunnelGraph = /*#__PURE__*/function () {
     key: "setDetails",
     value: function setDetails(bool) {
       this.details = bool;
+    }
+  }, {
+    key: "setPctMode",
+    value: function setPctMode(mode) {
+      this.pctMode = mode;
     }
 
     /**
@@ -6294,10 +6307,27 @@ var FunnelGraph = /*#__PURE__*/function () {
       } else {
         values = _toConsumableArray(this.values);
       }
-      var max = Math.max.apply(Math, _toConsumableArray(values));
-      return values.map(function (value) {
-        return value === 0 ? 0 : (0, _number.roundPoint)(value * 100 / max);
-      });
+      if (this.pctMode === 'max') {
+        // Calculate percentage relative to the maximum value
+        var max = Math.max.apply(Math, _toConsumableArray(values));
+        values = values.map(function (value) {
+          return value === 0 ? 0 : (0, _number.roundPoint)(value * 100 / max);
+        });
+      } else if (this.pctMode === 'previous') {
+        // Calculate percentage relative to the previous value
+        values = values.map(function (value, index) {
+          if (index === 0) return 100; // The first item relative to itself is always 100%
+          var previousValue = values[index - 1];
+          return previousValue === 0 ? 0 : (0, _number.roundPoint)(value * 100 / previousValue);
+        });
+      } else if (this.pctMode === 'first') {
+        // Calculate percentage relative to the first value
+        var firstValue = values[0];
+        values = values.map(function (value) {
+          return firstValue === 0 ? 0 : (0, _number.roundPoint)(value * 100 / firstValue);
+        });
+      }
+      return values;
     }
   }, {
     key: "makeVertical",
@@ -6512,6 +6542,9 @@ var FunnelGraph = /*#__PURE__*/function () {
         if (typeof d.colors !== 'undefined') {
           // Update colors if specified, or use default colors as a fallback
           this.colors = d.colors || (0, _colors.getDefaultColors)(this.is2d() ? this.getSubDataSize() : 2);
+        }
+        if (typeof d.pctMode !== 'undefined') {
+          this.setPctMode(d.pctMode);
         }
 
         // Calculate percentages for the graph based on the updated or existing values
@@ -6802,10 +6835,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.normalizeArray = void 0;
-var _normalizeArray = function _normalizeArray(arr) {
+var _normalizeArray2 = function _normalizeArray(arr) {
   // Helper function to check if a single cell is considered empty
   var isEmpty = function isEmpty(el) {
-    return Array.isArray(el) ? _normalizeArray(el) : el === null || el === undefined;
+    return Array.isArray(el) ? _normalizeArray2(el) : el === null || el === undefined;
   };
 
   // Check if every cell in the array is empty
@@ -6815,7 +6848,7 @@ var normalizeArray = exports.normalizeArray = function normalizeArray(arr) {
   // If the array is empty, return an empty array
   var nArray = [];
   try {
-    nArray = _normalizeArray(arr) ? [] : arr;
+    nArray = _normalizeArray2(arr) ? [] : arr;
   } catch (e) {
     console.warn("normalizing array function failed with errors: ", e);
   }
