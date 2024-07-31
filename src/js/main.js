@@ -57,7 +57,12 @@ class FunnelGraph {
         this.colors = options?.data?.colors || getDefaultColors(this.is2d() ? this.getSubDataSize() : 2);
         this.displayPercent = options.displayPercent || false;
 
-        this.setBackgrounColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : '#ffffff');
+        // Defining colors
+        this.setBackgroundColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : 'transparent');
+        this.setTitleColor(this.validateHexColor(options.titleColor) ? options.titleColor : '#05df9d');
+        this.setLabelColor(this.validateHexColor(options.labelColor) ? options.labelColor : '#ffffff');
+        this.setPercentageColor(this.validateHexColor(options.percentageColor) ? options.percentageColor : '#9896dc');
+        
         this.margin = { top: 120, right: 60, bottom: 60, left: 60, text: 10 };
         this.setMargin(options?.margin);
 
@@ -175,12 +180,36 @@ class FunnelGraph {
         this.pctMode = mode;
     }
 
-    setBackgrounColor(backgroundColor) {
+    setBackgroundColor(backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
     getBackgroundColor() {
         return this.backgroundColor;
+    }
+
+    setTitleColor(titleColor) {
+        this.titleColor = titleColor;
+    }
+
+    getTitleColor() {
+        return this.titleColor;
+    }
+
+    setLabelColor(labelColor) {
+        this.labelColor = labelColor;
+    }
+
+    getLabelColor() {
+        return this.labelColor;
+    }
+
+    setPercentageColor(percentageColor) {
+        this.percentageColor = percentageColor;
+    }
+
+    getPercentageColor() {
+        return this.percentageColor;
     }
 
     /**

@@ -5775,6 +5775,9 @@ var drawInfo = exports.drawInfo = function drawInfo(_ref13) {
     var width = context.getWidth();
     var height = context.getHeight();
     var vertical = context.isVertical();
+    var titleColor = context.getTitleColor();
+    var labelColor = context.getLabelColor();
+    var percentageColor = context.getPercentageColor();
     var textGap = info.length + 1;
     var noMarginHeight = height - margin.top - margin.bottom;
     var noMarginWidth = width - margin.left - margin.right;
@@ -5793,19 +5796,19 @@ var drawInfo = exports.drawInfo = function drawInfo(_ref13) {
           offset: offsetValue
         });
         var g = (0, _d3Selection.select)(this);
-        g.append("text").attr("class", "label__value").attr('x', x).attr('y', y).text(function (d) {
+        g.append("text").attr("class", "label__value").attr('x', x).attr('y', y).attr('style', 'fill:' + labelColor).text(function (d) {
           return d.value;
         }).each(textHandlerValue);
         var textHandlerTitle = onEachTextHandler({
           offset: offsetValue
         });
-        g.append("text").attr("class", "label__title").attr('x', x).attr('y', y).text(function (d) {
+        g.append("text").attr("class", "label__title").attr('x', x).attr('y', y).attr('style', 'fill:' + titleColor).text(function (d) {
           return d.label;
         }).each(textHandlerTitle);
         var textHandlerPercentage = onEachTextHandler({
           offset: offsetValue
         });
-        g.append("text").attr("class", "label__percentage").attr('x', x).attr('y', y).text(function (d) {
+        g.append("text").attr("class", "label__percentage").attr('x', x).attr('y', y).attr('style', 'fill:' + percentageColor).text(function (d) {
           return d.percentage;
         }).each(textHandlerPercentage);
       });
@@ -5819,19 +5822,19 @@ var drawInfo = exports.drawInfo = function drawInfo(_ref13) {
         var textHandlerValue = onEachTextHandler({
           offset: offsetValue
         });
-        (0, _d3Selection.select)(this).select(".label__value").attr('x', x).attr('y', y).text(function (d) {
+        (0, _d3Selection.select)(this).select(".label__value").attr('x', x).attr('y', y).attr('style', 'fill:' + labelColor).text(function (d) {
           return d.value;
         }).style('opacity', 0.5).transition().duration(400).ease(_d3Ease.easePolyInOut).style('opacity', 1).each(textHandlerValue);
         var textHandlerTitle = onEachTextHandler({
           offset: offsetValue
         });
-        (0, _d3Selection.select)(this).select(".label__title").attr('x', x).attr('y', y).text(function (d) {
+        (0, _d3Selection.select)(this).select(".label__title").attr('x', x).attr('y', y).attr('style', 'fill:' + titleColor).text(function (d) {
           return d.label;
         }).each(textHandlerTitle);
         var textHandlerPercentage = onEachTextHandler({
           offset: offsetValue
         });
-        (0, _d3Selection.select)(this).select(".label__percentage").attr('x', x).attr('y', y).text(function (d) {
+        (0, _d3Selection.select)(this).select(".label__percentage").attr('x', x).attr('y', y).attr('style', 'fill:' + percentageColor).text(function (d) {
           return d.percentage;
         }).each(textHandlerPercentage);
       });
@@ -5994,7 +5997,12 @@ var FunnelGraph = /*#__PURE__*/function () {
     this.percentages = this.createPercentages();
     this.colors = (options === null || options === void 0 || (_options$data4 = options.data) === null || _options$data4 === void 0 ? void 0 : _options$data4.colors) || (0, _colors.getDefaultColors)(this.is2d() ? this.getSubDataSize() : 2);
     this.displayPercent = options.displayPercent || false;
-    this.setBackgrounColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : '#ffffff');
+
+    // Defining colors
+    this.setBackgroundColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : 'transparent');
+    this.setTitleColor(this.validateHexColor(options.titleColor) ? options.titleColor : '#05df9d');
+    this.setLabelColor(this.validateHexColor(options.labelColor) ? options.labelColor : '#ffffff');
+    this.setPercentageColor(this.validateHexColor(options.percentageColor) ? options.percentageColor : '#9896dc');
     this.margin = {
       top: 120,
       right: 60,
@@ -6132,14 +6140,44 @@ var FunnelGraph = /*#__PURE__*/function () {
       this.pctMode = mode;
     }
   }, {
-    key: "setBackgrounColor",
-    value: function setBackgrounColor(backgroundColor) {
+    key: "setBackgroundColor",
+    value: function setBackgroundColor(backgroundColor) {
       this.backgroundColor = backgroundColor;
     }
   }, {
     key: "getBackgroundColor",
     value: function getBackgroundColor() {
       return this.backgroundColor;
+    }
+  }, {
+    key: "setTitleColor",
+    value: function setTitleColor(titleColor) {
+      this.titleColor = titleColor;
+    }
+  }, {
+    key: "getTitleColor",
+    value: function getTitleColor() {
+      return this.titleColor;
+    }
+  }, {
+    key: "setLabelColor",
+    value: function setLabelColor(labelColor) {
+      this.labelColor = labelColor;
+    }
+  }, {
+    key: "getLabelColor",
+    value: function getLabelColor() {
+      return this.labelColor;
+    }
+  }, {
+    key: "setPercentageColor",
+    value: function setPercentageColor(percentageColor) {
+      this.percentageColor = percentageColor;
+    }
+  }, {
+    key: "getPercentageColor",
+    value: function getPercentageColor() {
+      return this.percentageColor;
     }
 
     /**
