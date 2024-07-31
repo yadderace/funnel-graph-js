@@ -5387,13 +5387,14 @@ var createRootSVG = exports.createRootSVG = function createRootSVG(_ref) {
   var height = context.getHeight();
   var margin = context.getMargin();
   var containerSelector = context.getContainerSelector();
+  var backgroundColor = context.getBackgroundColor();
   var container = (0, _d3Selection.select)(containerSelector);
   var bodySelection = (0, _d3Selection.select)("body");
   var tooltipParentElement = bodySelection.empty() ? container : bodySelection;
 
   // add tooltip element
   tooltipParentElement.append('div').attr('id', "d3-funnel-js-tooltip").attr('class', 'd3-funnel-js-tooltip');
-  var d3Svg = container.append('svg').attr('class', 'd3-funnel-js').attr('id', id).attr('width', responsive ? "100%" : width).attr('height', responsive ? "100%" : height).attr('viewBox', "0 0 ".concat(width, " ").concat(height)).attr('preserveAspectRatio', 'xMidYMin meet');
+  var d3Svg = container.append('svg').attr('class', 'd3-funnel-js').attr('id', id).attr('width', responsive ? "100%" : width).attr('height', responsive ? "100%" : height).attr('viewBox', "0 0 ".concat(width, " ").concat(height)).attr('preserveAspectRatio', 'xMidYMin meet').attr('style', 'background-color:' + backgroundColor);
   getRootSvgGroup(id, margin);
   return d3Svg;
 };
@@ -5993,6 +5994,7 @@ var FunnelGraph = /*#__PURE__*/function () {
     this.percentages = this.createPercentages();
     this.colors = (options === null || options === void 0 || (_options$data4 = options.data) === null || _options$data4 === void 0 ? void 0 : _options$data4.colors) || (0, _colors.getDefaultColors)(this.is2d() ? this.getSubDataSize() : 2);
     this.displayPercent = options.displayPercent || false;
+    this.setBackgrounColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : '#ffffff');
     this.margin = {
       top: 120,
       right: 60,
@@ -6022,6 +6024,11 @@ var FunnelGraph = /*#__PURE__*/function () {
     this.linePositions = [];
   }
   return _createClass(FunnelGraph, [{
+    key: "validateHexColor",
+    value: function validateHexColor(hex) {
+      return /^#([0-9A-F]{3}){1,2}$/i.test(hex);
+    }
+  }, {
     key: "destroy",
     value: function destroy() {
       var destroy = (0, _d.destroySVG)({
@@ -6123,6 +6130,16 @@ var FunnelGraph = /*#__PURE__*/function () {
     key: "setPctMode",
     value: function setPctMode(mode) {
       this.pctMode = mode;
+    }
+  }, {
+    key: "setBackgrounColor",
+    value: function setBackgrounColor(backgroundColor) {
+      this.backgroundColor = backgroundColor;
+    }
+  }, {
+    key: "getBackgroundColor",
+    value: function getBackgroundColor() {
+      return this.backgroundColor;
     }
 
     /**
@@ -6480,6 +6497,10 @@ var FunnelGraph = /*#__PURE__*/function () {
       (0, _d.drawInfo)({
         context: this.getContext()
       });
+      var container = (0, _d.getContainer)(this.containerSelector);
+      if (container) {
+        container.style.backgroundColor = 'black'; // Set background color
+      }
     }
 
     /**

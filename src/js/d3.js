@@ -70,6 +70,7 @@ const createRootSVG = ({ context }) => {
     const height = context.getHeight();
     const margin = context.getMargin();
     const containerSelector = context.getContainerSelector()
+    const backgroundColor = context.getBackgroundColor()
 
     const container = select(containerSelector);
 
@@ -88,7 +89,8 @@ const createRootSVG = ({ context }) => {
         .attr('width', responsive ? "100%" : width)
         .attr('height', responsive ? "100%" : height)
         .attr('viewBox', `0 0 ${width} ${height}`)
-        .attr('preserveAspectRatio', 'xMidYMin meet');
+        .attr('preserveAspectRatio', 'xMidYMin meet')
+        .attr('style', 'background-color:' + backgroundColor);
 
     getRootSvgGroup(id, margin);
 

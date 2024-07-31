@@ -57,6 +57,7 @@ class FunnelGraph {
         this.colors = options?.data?.colors || getDefaultColors(this.is2d() ? this.getSubDataSize() : 2);
         this.displayPercent = options.displayPercent || false;
 
+        this.setBackgrounColor(this.validateHexColor(options.backgroundColor) ? options.backgroundColor : '#ffffff');
         this.margin = { top: 120, right: 60, bottom: 60, left: 60, text: 10 };
         this.setMargin(options?.margin);
 
@@ -84,6 +85,10 @@ class FunnelGraph {
          * Main use for the tooltip sections over the paths 
          */ 
         this.linePositions = [];
+    }
+
+    validateHexColor(hex) {
+        return /^#([0-9A-F]{3}){1,2}$/i.test(hex);
     }
 
     destroy() {
@@ -168,6 +173,14 @@ class FunnelGraph {
 
     setPctMode(mode) {
         this.pctMode = mode;
+    }
+
+    setBackgrounColor(backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    getBackgroundColor() {
+        return this.backgroundColor;
     }
 
     /**
@@ -466,6 +479,7 @@ class FunnelGraph {
             crossAxisPoints
         });
 
+
         drawPaths({
             context: this.getContext(),
             definitions,
@@ -475,6 +489,11 @@ class FunnelGraph {
         drawInfo({
             context: this.getContext()
         });
+
+        const container = getContainer(this.containerSelector);
+        if (container) {
+            container.style.backgroundColor = 'black'; // Set background color
+        }
     }
 
     /**
