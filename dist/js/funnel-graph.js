@@ -5986,11 +5986,11 @@ var FunnelGraph = /*#__PURE__*/function () {
     this.id = this.generateId(), this.containerSelector = options.container;
     this.gradientDirection = options.gradientDirection && options.gradientDirection === 'vertical' ? 'vertical' : 'horizontal';
     var availablePctModes = ['max', 'previous', 'first'];
-    this.setPctMode(options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode)) ? options.pctMode : 'max';
+    this.setPctMode(options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode) ? options.pctMode : 'max');
     this.setResponsive(options.hasOwnProperty("responsive") ? options.responsive : false);
     this.setDetails(options.hasOwnProperty('details') ? options.details : true);
     this.setTooltip(options.hasOwnProperty('tooltip') ? options.tooltip : true);
-    this.getDirection(options === null || options === void 0 ? void 0 : options.direction);
+    this.setDirection(options.hasOwnProperty('direction') && options.direction === 'horizontal' ? 'horizontal' : 'vertical');
     this.setValues((options === null || options === void 0 || (_options$data = options.data) === null || _options$data === void 0 ? void 0 : _options$data.values) || []);
     this.setLabels((options === null || options === void 0 || (_options$data2 = options.data) === null || _options$data2 === void 0 ? void 0 : _options$data2.labels) || []);
     this.setSubLabels((options === null || options === void 0 || (_options$data3 = options.data) === null || _options$data3 === void 0 ? void 0 : _options$data3.subLabels) || []);

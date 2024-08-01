@@ -45,11 +45,15 @@ class FunnelGraph {
             : 'horizontal';
             
         const availablePctModes = ['max', 'previous', 'first'];
-        this.setPctMode(options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode)) ? options.pctMode : 'max';
+        this.setPctMode((options.hasOwnProperty("pctMode") && availablePctModes.includes(options.pctMode)) 
+            ? options.pctMode 
+            : 'max');
         this.setResponsive(options.hasOwnProperty("responsive") ? options.responsive : false);
         this.setDetails(options.hasOwnProperty('details') ? options.details : true);
         this.setTooltip(options.hasOwnProperty('tooltip') ? options.tooltip : true);
-        this.getDirection(options?.direction);
+        this.setDirection((options.hasOwnProperty('direction') && options.direction === 'horizontal') 
+            ? 'horizontal' 
+            : 'vertical');
         this.setValues(options?.data?.values || []);
         this.setLabels(options?.data?.labels || []);
         this.setSubLabels(options?.data?.subLabels || []);
