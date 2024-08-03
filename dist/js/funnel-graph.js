@@ -6535,10 +6535,6 @@ var FunnelGraph = /*#__PURE__*/function () {
       (0, _d.drawInfo)({
         context: this.getContext()
       });
-      var container = (0, _d.getContainer)(this.containerSelector);
-      if (container) {
-        container.style.backgroundColor = 'black'; // Set background color
-      }
     }
 
     /**

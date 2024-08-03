@@ -523,10 +523,6 @@ class FunnelGraph {
             context: this.getContext()
         });
 
-        const container = getContainer(this.containerSelector);
-        if (container) {
-            container.style.backgroundColor = 'black'; // Set background color
-        }
     }
 
     /**

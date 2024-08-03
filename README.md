@@ -26,7 +26,11 @@ var graph = new FunnelGraph({
             console.log(metadata);
         }
     },
-    margin: { top: 120, right: 60, bottom: 60, left: 60, text: 10 }
+    margin: { top: 120, right: 60, bottom: 60, left: 60, text: 10 },
+    backgroundColor: 'transparent',
+    titleColor: '#05df9d',
+    labelColor: '#000000',
+    percentageColor: '#592EC2',
 });
 
 graph.draw();
@@ -63,6 +67,10 @@ graph.draw();
 * **responsive** when true the SVG's width and height will be set to 100%. And the configured width and height will be set in the viewBox.
     Make sure to set the parent DIVs elements to be 100% as well for resized graph
 * **pctMode** specify how percentages are calculated for each stage in the funnel. `max` uses the highest stage value as denominator. `previous` uses the previous stage value as denominator. `first` uses the first stage value as denominator.
+* **backgroundColor** specify the background color for the visualization.
+* **titleColor** specify the text color for title labels (name of each stage).
+* **labelColor** specify the text color for the value labels.
+* **percentageColor** specify the text color for the percentage labels.
 
 ## Updatable FunnelGraph configuration
 * width
@@ -75,6 +83,9 @@ graph.draw();
 * details
 * tooltip
 * pctMode
+* backgroundColor
+* titleColor
+* percentageColor
 
 
 ## Responsive Graph
